@@ -26,7 +26,7 @@ jobs:
           node-version: '16' # Specify Node.js version here
 
       - name: Install dependencies
-        run: npm install bip39 bs58 tiny-secp256k1 elliptic
+        run: npm install bip39 bip32 bs58 tiny-secp256k1 elliptic
 
       - name: Run main.js script
         run: node main.js turjaun
