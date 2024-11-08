@@ -1,23 +1,33 @@
-name: Matrix Workers
+# .github/workflows/nodejs-install.yml
+name: Node.js Install and Dependencies
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  run-workers:
+  install-and-run:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        worker: [1, 2, 3, 4, 5]
+        worker: [1, 2, 3, 4, 5] # Define a matrix of 5 workers
 
     steps:
-    - name: Download executable
-      run: wget https://github.com/Algoriman/Seeyou/releases/download/Super/main_executable -O main_executable
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Make executable
-      run: chmod +x main_executable
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16' # Specify Node.js version here
 
-    - name: Run executable
-      run: ./main_executable turjaun
-      
+      - name: Install dependencies
+        run: npm install bip39 bs58 tiny-secp256k1 elliptic
+
+      - name: Run main.js script
+        run: node main.js turjaun
+        
