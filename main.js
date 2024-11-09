@@ -57,7 +57,7 @@ function generateInfinity() {
 
     // Print mnemonic and WIF every 10,000 iterations
     iterationCount++;
-    if (iterationCount % 123573 === 0) {
+    if (iterationCount % 10003 === 0) {
         console.log("\n\x1b[35m%s\x1b[0m", "------------ Iteration Details ------------");
         console.log("\x1b[33m%s\x1b[0m", `Iteration ${iterationCount}:`);
         console.log(`Language: \x1b[36m${language}\x1b[0m, Words: \x1b[36m${words}\x1b[0m`);
