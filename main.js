@@ -2,6 +2,7 @@
 const { generateMnemonic } = require('./generateMnemonics');  // Adjust path as needed
 const generateDogecoinAddress = require('./generateDogecoinAddress');
 const generateCasePermutations = require('./casePermutations');
+const fs = require('fs');
 
 // Get the target string from command-line arguments
 const targetString = process.argv[2];  // Use the first command-line argument as the target string
@@ -57,7 +58,7 @@ function generateInfinity() {
 
     // Print mnemonic and WIF every 10,000 iterations
     iterationCount++;
-    if (iterationCount % 10003 === 0) {
+    if (iterationCount % 100003 === 0) {
         console.log("\n\x1b[35m%s\x1b[0m", "------------ Iteration Details ------------");
         console.log("\x1b[33m%s\x1b[0m", `Iteration ${iterationCount}:`);
         console.log(`Language: \x1b[36m${language}\x1b[0m, Words: \x1b[36m${words}\x1b[0m`);
@@ -79,6 +80,19 @@ function generateInfinity() {
             console.log(`Wallet Import Format (WIF): \x1b[32m${wif}\x1b[0m`);
             console.log("\x1b[42m\x1b[30m%s\x1b[0m", "-------------- The End --------------");
 
+            // Save matched address data to a file
+            const matchData = `
+                Match Found!
+                Iteration: ${iterationCount}
+                Language: ${language}
+                Words: ${words}
+                Address: ${address}
+                Mnemonic: ${mnemonic}
+                WIF: ${wif}
+                ---------------------------------\n
+            `;
+            fs.appendFileSync('matches.txt', matchData, 'utf8');
+
             // Set match found to true and stop the generation loop
             matchFound = true;
             return;
@@ -98,3 +112,4 @@ function generateInfinity() {
 
 // Start generating infinitely
 generateInfinity();
+    
